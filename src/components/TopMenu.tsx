@@ -18,13 +18,13 @@ export default async function TopMenu () {
             <div className="flex flex-row">
                 {
                     session? <>
-                        <TopMenuItem title={user.data.name } pageRef="/"/>
+                        <TopMenuItem title={user.data.name } pageRef="/account"/>
                         <TopMenuItem title="Sign-Out" pageRef="/api/auth/signout"/>
                     </> :
                     <>
                         <TopMenuItem title="Sign-In" pageRef="/api/auth/signin"/>
 
-                        <Link href="/api/auth/signin" className="p-3">
+                        <Link href="/register" className="p-3">
                             <button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
                             text-white shadow-sm" name="Register">Register</button>
                         </Link>
