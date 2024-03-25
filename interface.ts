@@ -25,3 +25,13 @@ interface BookingItem {
   bookDate: Date;
   createdAt: Date;
 }
+
+interface User {
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  telephoneNumber: string,
+  role: string,
+  createdAt: Date
+}
