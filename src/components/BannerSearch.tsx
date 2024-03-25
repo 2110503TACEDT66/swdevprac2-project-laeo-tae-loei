@@ -26,7 +26,7 @@ const MenuProps = {
 };
 
     return (
-        <div className=" bg-gray-200 rounded-3xl flex flex-col items-center justify-center space-y-4">
+        <div className=" bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow">
             <div className="justify-center px-8 pt-6">
                 <Autocomplete
                 disablePortal
@@ -37,7 +37,7 @@ const MenuProps = {
                 className="bg-white"/>}
                 />
             </div>
-            <div className="flex pb-6 space-x-4">
+            <div className="flex space-x-4">
                 <DateReserve onDateChange={(value:Dayjs)=>{setReserveDate(value)}}/>
                 <Select variant='standard' name='duration' id='duration' className='bg-white w-[100px] focus:outline-none focus:border-none' 
                 onChange={(event)=>{setDuration(event.target.value as unknown as number)}} labelId="duration-label" defaultValue={1}
@@ -52,6 +52,9 @@ const MenuProps = {
                     </MenuItem>
                 </Select>
             </div >
+            <div className="pb-6">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow">SEARCH</button>
+            </div>
         </div>
     )
 }

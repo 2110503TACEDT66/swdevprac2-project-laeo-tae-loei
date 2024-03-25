@@ -1,0 +1,36 @@
+import TopMenuItem from "./TopMenuItem";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import getUserProfile from "@/libs/getUserProfile";
+import Link from "next/link";
+
+export default async function TopMenu () {
+    const session = await getServerSession(authOptions);
+    const user = session? await getUserProfile(session.user?.token) : null;
+    return (
+        <div className="h-16 bg-white top-0 left-0 right-0 border-t 
+        border-solid border-lightgray flex flex-row justify-between text-black">
+            <div className="flex items-center justify-center">
+                <div className="text-md font-medium"><TopMenuItem title="Hotel Booking" pageRef="/"/></div>
+                <TopMenuItem title="Hotels" pageRef="/"/>
+                <TopMenuItem title="Booking" pageRef="/"/>
+            </div>
+            <div className="flex flex-row">
+                {
+                    session? <>
+                        <TopMenuItem title={user.data.name } pageRef="/"/>
+                        <TopMenuItem title="Sign-Out" pageRef="/api/auth/signout"/>
+                    </> :
+                    <>
+                        <TopMenuItem title="Sign-In" pageRef="/api/auth/signin"/>
+
+                        <Link href="/api/auth/signin" className="p-3">
+                            <button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
+                            text-white shadow-sm" name="Register">Register</button>
+                        </Link>
+                    </>
+                }
+            </div>
+        </div>
+    )
+}

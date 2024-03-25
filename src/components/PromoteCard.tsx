@@ -1,7 +1,14 @@
+import PromoteCatalog from "./PromoteCatalog"
+
 export default function PromoteCard() {
     return (
-        <div className="block">
-            <div className="text-center py-8 font-semibold">Top Destination in Thailand</div>     
+        <div className="w-screen">
+            <div className="text-center text-2xl py-8 font-semibold">Top Destination in Thailand</div>  
+            <div className="flex flex-row">
+                <PromoteCatalog name="Bangkok" image="/img/bangkok.jpg"/>
+                <PromoteCatalog name="Chiang Mai" image="/img/chiangmai.jpg"/>
+                <PromoteCatalog name="Phuket" image="/img/phuket.jpg"/>
+            </div>
         </div>
     )
 }
