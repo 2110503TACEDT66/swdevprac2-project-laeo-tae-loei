@@ -17,6 +17,7 @@ interface HotelJSON {
 }
 
 interface BookingItem {
+  id: string,
   user: string; 
   hotel: string; 
   roomType: string;
