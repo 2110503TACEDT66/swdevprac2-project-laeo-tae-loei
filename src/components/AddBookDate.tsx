@@ -7,7 +7,7 @@ import NightsStayIcon from '@mui/icons-material/NightsStay';
 import PersonIcon from '@mui/icons-material/Person';
 import DateReserve from "./DateReserve";
 
-export default function BannerSearch() {
+export default function AddBookDate(searchParams:any) {
     const options = [
         { label: 'Anywhere', value: 'Anywhere' },
         { label: 'Bangkok', value: 'Bangkok' },
@@ -17,13 +17,13 @@ export default function BannerSearch() {
     const [destination, setDestination] = useState<string>('');
     const [reserveDate, setReserveDate] = useState<Dayjs|null>(null);
     const [duration, setDuration] = useState<number>(1);
+    const [alertShown, setAlertShown] = useState<boolean>(false);
     const menuClass = "px-3 py-1 space-x-2";
 
     const router = useRouter();
 
     const handleSearch = () => {
         const params = new URLSearchParams({
-            address: destination,
             duration: String(duration), 
             date: reserveDate ? reserveDate.format('YYYY-MM-DD') : '2025-01-01' 
         });
@@ -31,28 +31,26 @@ export default function BannerSearch() {
         if (destination === 'Anywhere') {
             params.delete('address');
         }
-        
         router.push(`/hotels?${params.toString()}`);
     };
 
     return (
-        <div className=" bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow">
-            <div className="justify-center px-8 pt-6">
+        <div className=" bg-gray-200 flex flex-col items-center space-y-4 shadow w-screen">
+            <div className="flex space-x-4 py-3">
                 <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={options}
-                sx={{ width: 600 }}
-                onChange={(event:React.SyntheticEvent<Element, Event>, value:any) => setDestination(value?.value || '')}
-                renderInput={(params) => <TextField {...params} label="Enter a destination" 
-                className="bg-white"
-                />}
+                    disablePortal
+                    id="combo-box-demo"
+                    defaultValue={searchParams.address || 'Anywhere'}
+                    options={options}
+                    sx={{ width: 300 }}
+                    onChange={(event:React.SyntheticEvent<Element, Event>, value:any) => setDestination(value?.value || '')}
+                    renderInput={(params) => <TextField {...params} label="Enter a destination" 
+                    className="bg-white"
+                    />}
                 />
-            </div>
-            <div className="flex space-x-4">
                 <DateReserve onDateChange={(value:Dayjs)=>{setReserveDate(value)}}/>
                 <Select variant='standard' name='duration' id='duration' className='bg-white w-[100px] focus:outline-none focus:border-none' 
-                onChange={(event)=>{setDuration(event.target.value as unknown as number)}} labelId="duration-label" defaultValue={1}
+                onChange={(event)=>{setDuration(event.target.value as unknown as number)}} labelId="duration-label" defaultValue={searchParams.duration || 1}
                 >
                     <MenuItem value={1}><ListItemIcon className={menuClass}><NightsStayIcon fontSize="small" style={{ marginRight: '8px' }}/>1</ListItemIcon></MenuItem>
                     <MenuItem value={2}><ListItemIcon className={menuClass}><NightsStayIcon fontSize="small" style={{ marginRight: '8px' }}/>2</ListItemIcon></MenuItem>
@@ -63,8 +61,6 @@ export default function BannerSearch() {
                         <ListItemIcon className={menuClass}><PersonIcon fontSize="small" style={{ marginRight: '8px' }}/>2 adults, 1 room</ListItemIcon>
                     </MenuItem>
                 </Select>
-            </div >
-            <div className="pb-6">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow"
                 onClick={handleSearch}>SEARCH</button>
             </div>
