@@ -4,6 +4,7 @@ import { HotelJSON } from "../../interface";
 
 export default async function HotelCatalog({hotelJson}:{hotelJson:HotelJSON}) {
     const hotel = await hotelJson
+    console.log(hotel)
 
     return(
         <div style={{
@@ -11,7 +12,7 @@ export default async function HotelCatalog({hotelJson}:{hotelJson:HotelJSON}) {
             display: "flex",
             flexDirection:"column",
             flexWrap:"wrap",
-            justifyContent:"space-around",
+            justifyContent:"center",
             alignContent:"space-around"
         }}>
             {

@@ -1,3 +1,4 @@
+'use client'
 import HotelCatalog from "@/components/HotelCatalog"
 import { HotelJSON } from "../../../interface"
 import getHotels from "@/libs/getHotels"
