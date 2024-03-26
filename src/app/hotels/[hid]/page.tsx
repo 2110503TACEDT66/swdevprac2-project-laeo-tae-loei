@@ -5,9 +5,14 @@ import RoomCard from "@/components/RoomCard";
 import EditHotelButton from "@/components/EditHotelButton";
 import { Rating } from "@mui/material";
 
-export default async function HotelDetail({params}:{params:{hid:string}}) {
+export default async function HotelDetail({params, searchParams}:{params:{hid:string}, searchParams:{date:string, duration:number}}) {
     const hotel = await getHotel(params.hid)
     const hotelItem = hotel.data
+    const bookingInformation = {
+        hotel: hotelItem._id,
+        date: searchParams.date,
+        duration: searchParams.duration
+    }
     
     return(
         <main className="">
@@ -32,21 +37,21 @@ export default async function HotelDetail({params}:{params:{hid:string}}) {
 
             <div className="py-6 mx-[10%] w-[90%]">
                 {
-                    hotelItem.starRating < 4? <RoomCard roomType="Standard" bed={"2 Single Bed"} imgSrc={"/img/Standard.jpg"} price={hotelItem.basePrice}/> : null
+                    hotelItem.starRating < 4? <RoomCard roomType="Standard" bed={"2 Single Bed"} imgSrc={"/img/Standard.jpg"} price={hotelItem.basePrice} book={bookingInformation}/> : null
                 }
                 {
                     hotelItem.starRating > 2? <div>
-                        <RoomCard roomType="Superior" bed={"1 Double Bed"} imgSrc={"/img/Superior.jpg"} price={hotelItem.basePrice}/>
-                        <RoomCard roomType="Deluxe" bed={"1 Double Bed"} imgSrc={"/img/Deluxe.jpg"} price={hotelItem.basePrice}/> 
+                        <RoomCard roomType="Superior" bed={"1 Double Bed"} imgSrc={"/img/Superior.jpg"} price={hotelItem.basePrice} book={bookingInformation}/>
+                        <RoomCard roomType="Deluxe" bed={"1 Double Bed"} imgSrc={"/img/Deluxe.jpg"} price={hotelItem.basePrice} book={bookingInformation}/> 
                     </div> : null
                 }
                 
                 
                 {
-                    hotelItem.starRating > 4? <RoomCard roomType="Suite" bed={"1 Double Bed"} imgSrc={"/img/Suite.jpg"} price={hotelItem.basePrice + 600}/>:null
+                    hotelItem.starRating > 4? <RoomCard roomType="Suite" bed={"1 Double Bed"} imgSrc={"/img/Suite.jpg"} price={hotelItem.basePrice + 600} book={bookingInformation}/>:null
                 }
                 {
-                    hotelItem.starRating == 5? <RoomCard roomType="Executive Suite" bed={"1 Double Bed"} imgSrc={"/img/ExSuite.jpg"} price={hotelItem.basePrice + 2000}/>:null
+                    hotelItem.starRating == 5? <RoomCard roomType="Executive Suite" bed={"1 Double Bed"} imgSrc={"/img/ExSuite.jpg"} price={hotelItem.basePrice + 2000} book={bookingInformation}/>:null
                 }
             </div>
         </main>

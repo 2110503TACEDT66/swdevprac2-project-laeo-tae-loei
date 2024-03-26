@@ -20,8 +20,8 @@ export interface HotelJSON {
   data: HotelItem[]
 }
 
-interface BookingItem {
-  id: string,
+export interface BookingItem {
+  id?: string,
   user: string; 
   hotel: string; 
   roomType: string;
@@ -38,4 +38,10 @@ export interface User {
   telephoneNumber: string,
   role: string,
   createdAt: Date
+}
+
+interface Book {
+  hotel: string,
+  date: string,
+  duration: number
 }

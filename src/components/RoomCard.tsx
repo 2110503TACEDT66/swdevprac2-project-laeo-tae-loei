@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import { HotelJSON } from '../../interface';
+import Link from 'next/link';
 
-export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, price,}:
-    {roomType:string, imgSrc:string, bed:string, cap?:number, shower?:boolean, smoke?:boolean, price:number}) {
+export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, price, book}:
+    {roomType:string, imgSrc:string, bed:string, cap?:number, shower?:boolean, smoke?:boolean, price:number, 
+        book:{hotel:string, date:string, duration:number}}) {
     
     return(
         <div className='w-[90%] h-[200px] flex flex-row my-2 bg-slate-100 rounded-sm hover:bg-slate-200'>
@@ -23,9 +25,13 @@ export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, pri
                         <div className='text-slate-600'>Price per night</div>
                         <div className='text-red-600 text-xl'>THB {price}</div>
                     </div>
-                    <div className=''>
-                    <button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-10 py-2 
-                            text-white shadow-sm">Book Now</button> 
+                    <div className='w-[20%] text-center'>
+                        <div className='text-sm'>Price per night</div>
+                        <div className='text-red-600'>THB {price}</div>
+                    </div>
+                    <div className='w-[10%] text-center'>
+                    <Link href={`/book?hotel=${book.hotel}&type=${roomType}&date=${book.date}&duration=${book.duration}`}><button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
+                            text-white shadow-sm">Book Now</button> </Link>
                     </div>
                     
                     
