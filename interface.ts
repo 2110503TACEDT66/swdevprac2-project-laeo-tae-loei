@@ -6,7 +6,9 @@ interface HotelItem {
     starRating: number,
     basePrice: number,
     tel: string,
-    images: { [key: string]: string }
+    images: {
+      main: string;
+    };
 }
   
 export interface HotelJSON {
@@ -34,4 +36,10 @@ interface User {
   telephoneNumber: string,
   role: string,
   createdAt: Date
+}
+
+interface Book {
+  hotel: string,
+  date: string,
+  duration: number
 }

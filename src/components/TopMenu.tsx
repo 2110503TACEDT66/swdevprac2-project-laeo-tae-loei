@@ -13,7 +13,7 @@ export default async function TopMenu () {
             <div className="flex items-center justify-center">
                 <div className="text-md font-medium"><TopMenuItem title="Hotel Booking" pageRef="/"/></div>
                 <TopMenuItem title="Hotels" pageRef="/hotels/"/>
-                <TopMenuItem title="Booking" pageRef="/booking"/>
+                <TopMenuItem title="Booking" pageRef="/mybooking"/>
             </div>
             <div className="flex flex-row">
                 {

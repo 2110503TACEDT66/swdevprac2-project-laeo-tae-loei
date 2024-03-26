@@ -18,14 +18,14 @@ export default function Card({hotelName, imgSrc, rating, address, tel, price}:
                 <p className='text-xl font-semibold'>{hotelName}</p>
                 <div className='flex flex-row m-4'>
                     <div className='w-[50%]'>
-                        { rating? <Rating className='h-[10%]'
+                        { rating? <Rating className='h-[10%]' readOnly
                         value={rating}/> : ''
                         }
                         <p>{address}</p>
                     </div>
                     <div className='w-[20%] text-right'>
                         <p>Start form</p>
-                        <p>THB {price}</p>
+                        <p className='text-red-600'>THB {price}</p>
                     </div>
                     
                 </div>

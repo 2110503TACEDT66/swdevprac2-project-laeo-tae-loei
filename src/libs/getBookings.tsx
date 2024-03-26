@@ -1,14 +1,26 @@
-export default async function getBookings(token: string) {
+import { BookingItem } from "../../interface";
+
+export default async function getBookings(token:string, data:BookingItem) {
+
 
     const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/booking`, {
         method: 'GET',
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
-        }})
+        }
+    });
 
-    console.log(response)
+    if (!response.ok) {
+        throw new Error('Failed to fetch bookings');
+    }
 
-    if (!response.ok) throw new Error('Failed to fetch User Profile')
-
-    return await response.json()
-}   
+    try {
+        const jsonData = await response.json();
+        console.log(jsonData); // Logging the response JSON after parsing
+        return jsonData;
+    } catch (error) {
+        console.error('Failed to parse JSON response:', error);
+        throw new Error('Failed to parse JSON response');
+    }
+}
