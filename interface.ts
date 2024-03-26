@@ -1,3 +1,7 @@
+export interface HotelImage {
+  main: string
+}
+
 interface HotelItem {
     _id: string,
     name: string,
@@ -6,9 +10,7 @@ interface HotelItem {
     starRating: number,
     basePrice: number,
     tel: string,
-    images: {
-      main: string;
-    };
+    images: string
 }
   
 export interface HotelJSON {
@@ -28,7 +30,7 @@ interface BookingItem {
   createdAt: Date;
 }
 
-interface User {
+export interface User {
   id: string,
   name: string,
   email: string,

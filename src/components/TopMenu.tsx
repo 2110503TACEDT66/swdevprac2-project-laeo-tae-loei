@@ -12,7 +12,7 @@ export default async function TopMenu () {
         border-solid border-lightgray flex flex-row justify-between text-black">
             <div className="flex items-center justify-center">
                 <div className="text-md font-medium"><TopMenuItem title="Hotel Booking" pageRef="/"/></div>
-                <TopMenuItem title="Hotels" pageRef="/hotels/"/>
+                <TopMenuItem title="Hotels" pageRef="/hotels"/>
                 <TopMenuItem title="Booking" pageRef="/booking"/>
             </div>
             <div className="flex flex-row">
