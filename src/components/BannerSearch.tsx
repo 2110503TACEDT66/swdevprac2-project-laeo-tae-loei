@@ -1,6 +1,7 @@
 "use client"
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Select, MenuItem, MenuProps, ListItemIcon, Autocomplete, TextField } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,18 +13,21 @@ export default function BannerSearch() {
         { label: 'Chiang Mai', value: 'Chiang Mai' },
         { label: 'Phuket', value: 'Phuket'}
     ]
+    const [destination, setDestination] = useState<string>('');
     const [reserveDate, setReserveDate] = useState<Dayjs|null>(null);
     const [duration, setDuration] = useState<number>(1);
     const menuClass = "px-3 py-1 space-x-2";
-const MenuProps = {
-    getContentAnchorEl: null,
-    PaperProps: {
-        style: {
-            maxHeight: 200,
-            width: 300,
-        },
-    },
-};
+
+    const router = useRouter();
+
+    const handleSearch = () => {
+        const params = new URLSearchParams({
+            address: destination,
+            duration: String(duration), 
+            date: reserveDate ? reserveDate.format('YYYY-MM-DD') : '2025-01-01' 
+        });
+        router.push(`/hotels?${params.toString()}`);
+    };
 
     return (
         <div className=" bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow">
@@ -33,8 +37,10 @@ const MenuProps = {
                 id="combo-box-demo"
                 options={options}
                 sx={{ width: 600 }}
+                onChange={(event:React.SyntheticEvent<Element, Event>, value:any) => setDestination(value?.value || '')}
                 renderInput={(params) => <TextField {...params} label="Enter a destination" 
-                className="bg-white"/>}
+                className="bg-white"
+                />}
                 />
             </div>
             <div className="flex space-x-4">
@@ -53,7 +59,8 @@ const MenuProps = {
                 </Select>
             </div >
             <div className="pb-6">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow">SEARCH</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow"
+                onClick={handleSearch}>SEARCH</button>
             </div>
         </div>
     )
