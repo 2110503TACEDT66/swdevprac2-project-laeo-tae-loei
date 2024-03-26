@@ -1,10 +1,13 @@
-import { BookingItem } from "../../interface";
-
-export default async function getBookings(token:string, data:BookingItem) {
 
 
-    const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/booking`, {
-        method: 'GET',
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+export default async function deleteBooking(id:string,token:string) {
+
+
+    const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/booking/${id}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
@@ -24,3 +27,4 @@ export default async function getBookings(token:string, data:BookingItem) {
         throw new Error('Failed to parse JSON response');
     }
 }
+

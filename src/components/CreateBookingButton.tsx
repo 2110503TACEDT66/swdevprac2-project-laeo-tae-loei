@@ -12,7 +12,7 @@ export default function CreateBookingButton({book, session}:{book:BookingItem, s
 
     const handleBook = (event: React.MouseEvent<HTMLButtonElement>) =>  {
         setLoading(true);
-        createBooking(book, session?.user.token).then(data => {
+        createBooking(book.bookDate, book.duration, book.hotel, book.roomType).then(data => {
             setLoading(false);
             setComplete(true);
         }).catch(error => {
