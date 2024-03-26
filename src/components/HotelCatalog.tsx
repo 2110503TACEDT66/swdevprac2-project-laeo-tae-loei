@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default async function HotelCatalog({hotelJson, date, duration}:{hotelJson:HotelJSON, date:string, duration:number}) {
     const hotel = await hotelJson
+    console.log(hotel)
 
     return(
         <div style={{
@@ -12,7 +13,7 @@ export default async function HotelCatalog({hotelJson, date, duration}:{hotelJso
             display: "flex",
             flexDirection:"column",
             flexWrap:"wrap",
-            justifyContent:"space-around",
+            justifyContent:"center",
             alignContent:"space-around"
         }}>
             {
