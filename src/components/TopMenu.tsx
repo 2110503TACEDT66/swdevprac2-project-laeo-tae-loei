@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export default async function TopMenu () {
     const session = await getServerSession(authOptions);
-    const user = session? await getUserProfile(session.user?.token) : null;
     return (
         <div className="h-16 bg-white top-0 left-0 right-0 border-t 
         border-solid border-lightgray flex flex-row justify-between text-black">
@@ -18,7 +17,7 @@ export default async function TopMenu () {
             <div className="flex flex-row">
                 {
                     session? <>
-                        <TopMenuItem title={user.data.name } pageRef="/account"/>
+                        <TopMenuItem title="Account" pageRef="/account"/>
                         <TopMenuItem title="Sign-Out" pageRef="/api/auth/signout"/>
                     </> :
                     <>

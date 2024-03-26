@@ -18,8 +18,8 @@ export interface HotelJSON {
   data: HotelItem[]
 }
 
-interface BookingItem {
-  id: string,
+export interface BookingItem {
+  id?: string,
   user: string; 
   hotel: string; 
   roomType: string;

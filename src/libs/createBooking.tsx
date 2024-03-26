@@ -1,23 +1,21 @@
-export default async function createBooking(did: string, token: string, apptDate: Date , userName:string , dentistName:string) {
+import { BookingItem } from "../../interface";
 
-    const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/booking`, {
+export default async function createBooking(book:BookingItem, token:string) {
+    console.log(book)
+
+    const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/hotel/${book.hotel}/booking`, {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json" 
         },
         body: JSON.stringify({ 
-            bookDate: apptDate,
-            username: userName,
-            dentistname : dentistName
+            book
         })
     });
 
     if (!response.ok) {
-        // throw new Error("Cannot create reservation");
-        console.log(response.status);
-        console.log(response.json)
-        // console.log(response.)
+        throw new Error("Cannot create reservation");
     }
     return await response.json();
 }
