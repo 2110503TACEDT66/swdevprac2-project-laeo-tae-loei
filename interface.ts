@@ -35,3 +35,9 @@ interface User {
   role: string,
   createdAt: Date
 }
+
+interface Book {
+  hotel: string,
+  date: string,
+  duration: number
+}

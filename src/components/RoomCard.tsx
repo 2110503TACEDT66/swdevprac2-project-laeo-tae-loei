@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import InteractiveCard from './InteractiveCard'
 import { HotelJSON } from '../../interface';
+import Link from 'next/link';
 
-export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, price}:
-    {roomType:string, imgSrc:string, bed:string, cap?:number, shower?:boolean, smoke?:boolean, price:number}) {
+export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, price, book}:
+    {roomType:string, imgSrc:string, bed:string, cap?:number, shower?:boolean, smoke?:boolean, price:number, 
+        book:{hotel:string, date:string, duration:number}}) {
     
     return(
         <div className='w-[80%] h-[200px] flex flex-row'>
@@ -27,8 +29,8 @@ export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, pri
                         <p>THB {price}</p>
                     </div>
                     <div className='w-[10%] text-center'>
-                    <button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
-                            text-white shadow-sm">Book Now</button> 
+                    <Link href={`/book?hotel=${book.hotel}&type=${roomType}&date=${book.date}&duration=${book.duration}`}><button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
+                            text-white shadow-sm">Book Now</button> </Link>
                     </div>
                     
                     

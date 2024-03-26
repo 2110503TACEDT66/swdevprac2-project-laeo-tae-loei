@@ -3,9 +3,14 @@ import getHotel from "@/libs/getHotel";
 import RoomCard from "@/components/RoomCard";
 import EditHotelButton from "@/components/EditHotelButton";
 
-export default async function HotelDetail({params}:{params:{hid:string}}) {
+export default async function HotelDetail({params, searchParams}:{params:{hid:string}, searchParams:{date:string, duration:number}}) {
     const hotel = await getHotel(params.hid)
     const hotelItem = hotel.data
+    const bookingInformation = {
+        hotel: hotelItem._id,
+        date: searchParams.date,
+        duration: searchParams.duration
+    }
     
     return(
         <main className="p-5">
@@ -24,8 +29,8 @@ export default async function HotelDetail({params}:{params:{hid:string}}) {
             <EditHotelButton/>
 
             <div>
-                <RoomCard roomType="Standard" bed={"2 Single Bed"} imgSrc={"/img/bangkok.jpg"} price={1500}/>
-                <RoomCard roomType="Deluxe" bed={"1 Double Bed"} imgSrc={"/img/bangkok.jpg"} price={2400}/>
+                <RoomCard roomType="Standard" bed={"2 Single Bed"} imgSrc={"/img/bangkok.jpg"} price={1500} book={bookingInformation}/>
+                <RoomCard roomType="Deluxe" bed={"1 Double Bed"} imgSrc={"/img/bangkok.jpg"} price={2400} book={bookingInformation}/>
             </div>
         </main>
     )

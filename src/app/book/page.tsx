@@ -9,3 +9,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'; 
 import getUserProfile from '@/libs/getUserProfile';
 
+export default function Book() {
+    return (
+        <main>
+            Hello
+        </main>
+    )
+}
