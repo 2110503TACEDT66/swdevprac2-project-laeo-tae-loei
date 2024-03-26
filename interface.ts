@@ -9,7 +9,7 @@ interface HotelItem {
     images: { [key: string]: string }
 }
   
-interface HotelJSON {
+export interface HotelJSON {
   success: boolean,
   count: number,
   pagination: Object,
