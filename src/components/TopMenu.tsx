@@ -1,7 +1,6 @@
 import TopMenuItem from "./TopMenuItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import getUserProfile from "@/libs/getUserProfile";
 import Link from "next/link";
 
 export default async function TopMenu () {
@@ -12,7 +11,7 @@ export default async function TopMenu () {
             <div className="flex items-center justify-center">
                 <div className="text-md font-medium"><TopMenuItem title="Hotel Booking" pageRef="/"/></div>
                 <TopMenuItem title="Hotels" pageRef="/hotels"/>
-                <TopMenuItem title="Booking" pageRef="/booking"/>
+                <TopMenuItem title="Booking" pageRef="/mybooking"/>
             </div>
             <div className="flex flex-row">
                 {

@@ -1,22 +1,20 @@
-"use server"
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function updateBooking(id:string, EstartDate : Date , EendDate : Date , Ehotel : string) {
+import { BookingItem } from "../../interface";
 
-    const session = await getServerSession(authOptions);
+export default async function updateBooking(EbookDate:Date,duration:number,roomType:string, token:string, id:string) {
+
 
     const response = await fetch(`https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/booking/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            authorization: `Bearer ${session?.user.token}`
+            authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-            startDate: EstartDate,
-            endDate: EendDate,
-            hotel : Ehotel ,
-            //ค่อยเพิ่ม
+            hotel: hotel.name,
+            bookDate: EbookDate,
+            roomType: roomType,
+            duration: duration
         })
     });
 
