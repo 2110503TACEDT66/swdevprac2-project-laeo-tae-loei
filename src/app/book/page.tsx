@@ -1,128 +1,76 @@
-"use client"
-import styles from './booking.module.css'
-import LocationDateReserve from '@/components/DateReserve';
-import { useSearchParams } from 'next/navigation';
-import { TextField } from "@mui/material";
-//import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-import getUserProfile from '@/libs/getUserProfile';
-import { useState , ChangeEventHandler} from 'react';
-import { Dayjs } from 'dayjs';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
-import { BookingItem } from '../../../interface';
-import { addBooking } from '@/redux/features/bookSlice';
-import dayjs from 'dayjs';
+'use client'
 
+import { AppDispatch } from "@/redux/store"
+import { useDispatch } from "react-redux"
+import { useSearchParams } from "next/navigation"
+import DateBooker from "@/components/DateBooker"
+import { useState } from "react"
+import dayjs, { Dayjs } from "dayjs"
+import Image from "next/image";
+import { CartItem } from "../../../interface"
+import { addToCart } from "../redux/features/cartSlice"
 
-export default function Booking() {
+export default function reservation() {
+    const urlParams = useSearchParams()
+    const hid = urlParams.get("hid")
+    const price = urlParams.get("price") || "0"
+    const name = urlParams.get("name") || ""
+    const picture = urlParams.get("file") || ""
 
-    //const session = await getServerSession(authOptions)
-    //if(!session || !session.user.token) return null
+    const dispatch = useDispatch<AppDispatch>()
+    const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
+    const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
 
-    //const profile = await getUserProfile(session.user.token)
-    //var createdAt = new Date(profile.data.createdAt)
-
-    const dispatch = useDispatch<AppDispatch>();
-
-    const getDefaultLocation = () => {
-        const urlParams = useSearchParams();
-        const nameParam = urlParams.get('name');
-    
-        if (nameParam) {
-            return nameParam;
-        } else {
-            return 'Chulalongkorn Hotel';
-        }
-    }
-
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [id, setId] = useState('');
-    const [hotel, setHotel] = useState(getDefaultLocation());
-    const [bookDate, setBookDate] = useState<Dayjs | null>(null);
-
-    const handleNameChange : ChangeEventHandler<HTMLInputElement> = (event) => {
-        setName(event.target.value); 
-    };
-    const handleSurnameChange : ChangeEventHandler<HTMLInputElement> = (event) => {
-        setSurname(event.target.value); 
-    };
-    const handleIdChange : ChangeEventHandler<HTMLInputElement> = (event) => {
-        setId(event.target.value); 
-    };
-
-    const makeBooking = () => {
-        if (hotel && bookDate) {
-            const item: BookingItem = {
+    const MakeReservation = () => {
+        if(checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
+            const booking: CartItem = {
+                _id: dayjs().format("YYYYMMDDHHmmssSSS"),
+                checkInDate: dayjs(checkInDate).format("YYYY-MM-DD"),
+                checkOutDate: dayjs(checkOutDate).format("YYYY-MM-DD"),
+                hid: hid,
+                price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
                 name: name,
-                surname: surname,
-                id: id,
-                hotel: hotel,
-                bookDate: bookDate?.format("YYYY/MM/DD")
+                picture: picture
             }
-            dispatch(addBooking(item));
-
-            setName('');
-            setSurname('');
-            setId('');
-            setHotel('Chula');
-            setBookDate(null);
+            dispatch(addToCart(booking))
         }
     }
     
-    return(
-        <main className='w-[100%] flex flex-col items-center space-y-4 m-5 p-5' style={{ marginTop: '70px' }}>
-            
-            <div className = "text-x1 front-medium" >Vaccine Booking</div>
+    let totalPrice = checkOutDate?.diff(checkInDate, "day") * parseInt(price)
+    if (totalPrice === undefined) {
+        totalPrice = 0
+    }
 
-            <TextField
-                id="name"
-                label="Name"
-                variant="standard"
-                name="Name"
-                fullWidth
-                margin="normal"
-                className="h-[2em] w-[200px]"
-                value={name}
-                onChange={handleNameChange}
-            />
-
-            <TextField
-                id="lastname"
-                label="Lastname"
-                variant="standard"
-                name="Lastname"
-                fullWidth
-                margin="normal"
-                className="h-[2em] w-[200px]"
-                value={surname}
-                onChange={handleSurnameChange}
-            />
-
-            <TextField
-                id="citizen-id"
-                label="Citizen ID"
-                variant="standard"
-                name="Citizen ID"
-                fullWidth
-                margin="normal"
-                className="h-[2em] w-[200px]"
-                value={id}
-                onChange={handleIdChange}
-            />
-
-            <div className='w-fit space-y-2'>
-                <div className='text-md text-left text-gray-600'>
-                    DatePicker
+    return (
+        <div className="flex justify-center items-center m-10">
+            <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl">
+                <div className="flex justify-center items-center">
+                    <Image src={`/img/${picture}`} width={400} height={200} alt={`{name}`} className="rounded-lg text-center m-1 pb-2" />
                 </div>
-                <LocationDateReserve onDateChange={(value:Dayjs)=>{setBookDate(value)}} onLocationChange={(value:string)=>{setHotel(value)}}/>
+                
+                <div className="text-center mb-6">
+                    <h1 className="text-3xl font-bold text-gray-800 mb-2">{name}</h1>
+                    <p className="text-gray-600">It's Happening...</p>
+                </div>
+                <div className="flex justify-between items-center mb-8">
+                    <div className="m-1">
+                        <h2 className="text-lg font-semibold text-gray-800">Check In</h2>
+                        <DateBooker onDateChange={(value:Dayjs)=>{setCheckInDate(value)}}/>
+                    </div>
+                    <div className="m-1">
+                        <h2 className="text-lg font-semibold text-gray-800">Check Out</h2>
+                        <DateBooker onDateChange={(value:Dayjs)=>{setCheckOutDate(value)}}/>
+                    </div>
+                </div>
+                <div className="text-center">
+                        
+                    <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `฿ ${totalPrice}` : "Wrong"}</h1>
+                    
+                    <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={MakeReservation}>
+                        Add to Cart
+                    </button>
+                </div>
             </div>
-            <button className='block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm' name='Book Vaccine'
-            onClick={makeBooking}>
-                Book Vaccine
-            </button>
-            
-        </main>
-    );
+        </div>
+    )
 }

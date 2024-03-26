@@ -17,13 +17,11 @@ interface HotelJSON {
 }
 
 export interface BookingItem {
-  id: string,
   user: string; 
   hotel: string; 
   roomType: string;
-  duration: number;
-  bookDate: Date;
-  createdAt: Date;
+  checkIn: string;
+  checkOut: string;
 }
 
 interface User {

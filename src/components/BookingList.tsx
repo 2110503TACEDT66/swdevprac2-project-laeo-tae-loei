@@ -1,6 +1,7 @@
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { removeBooking } from "@/redux/features/bookSlice";
+import Link from "next/link";
 
 export default function BookingList() {
     const bookItems = useAppSelector((state) => state.bookSlice.bookItems);
@@ -15,7 +16,6 @@ export default function BookingList() {
                         <div className="text-sm">Hotel: {bookItem.hotel}</div>
                         <div className="text-sm">Book Date: {bookItem.bookDate.toString()}</div>
                         <div className="text-sm">Book ID: {bookItem.id}</div>
-                        
                         <button
                             className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 
                             text-white shadow-sm"
