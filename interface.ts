@@ -6,7 +6,9 @@ interface HotelItem {
     starRating: number,
     basePrice: number,
     tel: string,
-    images: { [key: string]: string }
+    images: {
+      main: string;
+    };
 }
   
 export interface HotelJSON {
