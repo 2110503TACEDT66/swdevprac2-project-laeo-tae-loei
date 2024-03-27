@@ -8,6 +8,8 @@ import { Rating } from "@mui/material";
 export default async function HotelDetail({params, searchParams}:{params:{hid:string}, searchParams:{date:string, duration:number}}) {
     const hotel = await getHotel(params.hid)
     const hotelItem = hotel.data
+    const img = hotelItem.images
+    const pic = img?.main
     const bookingInformation = {
         hotel: hotelItem._id,
         date: searchParams.date,
@@ -17,7 +19,7 @@ export default async function HotelDetail({params, searchParams}:{params:{hid:st
     return(
         <main className="">
             <div className="w-[90%] mx-[5%]">
-            <Image src={"/img/bangkok.jpg"} alt='Image'
+            <Image src={pic} alt='Image'
                     width={0} height={0} sizes='100vw'
                     className='rounded-md w-[100%]'/>
             <div className="py-2 text-4xl font-semibold mx-2">{hotelItem.name}
@@ -33,8 +35,7 @@ export default async function HotelDetail({params, searchParams}:{params:{hid:st
             
             </div>
 
-            <EditHotelButton/>
-
+        
             <div className="py-6 mx-[10%] w-[90%]">
                 {
                     hotelItem.starRating < 4? <RoomCard roomType="Standard" bed={"2 Single Bed"} imgSrc={"/img/Standard.jpg"} price={hotelItem.basePrice} book={bookingInformation}/> : null

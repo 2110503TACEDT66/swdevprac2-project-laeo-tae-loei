@@ -25,12 +25,10 @@ export default function RoomCard({roomType, imgSrc, bed, cap, shower, smoke, pri
                         <div className='text-slate-600'>Price per night</div>
                         <div className='text-red-600 text-xl'>THB {price}</div>
                     </div>
-                    <div className='w-[20%] text-center'>
-                        <div className='text-sm'>Price per night</div>
-                        <div className='text-red-600'>THB {price}</div>
-                    </div>
-                    <div className='w-[10%] text-center'>
-                    <Link href={`/book?hotel=${book.hotel}&type=${roomType}&date=${book.date}&duration=${book.duration}`}><button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-3 py-2 
+                    
+                    <div className='text-center'>
+                    <Link href={`/book?hotel=${book.hotel}&type=${roomType}&date=${book.date}&duration=${book.duration}`}>
+                        <button className="block rounded-md bg-blue-500 hover:bg-indigo-500 px-10 py-2 
                             text-white shadow-sm">Book Now</button> </Link>
                     </div>
                     

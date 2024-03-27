@@ -2,15 +2,15 @@ export interface HotelImage {
   main: string
 }
 
-interface HotelItem {
-    _id: string,
-    name: string,
-    address: string,
-    telephoneNumber: string,
-    starRating: number,
-    basePrice: number,
-    tel: string,
-    images: string
+export interface HotelItem {
+    _id: string;
+    name: string;
+    address: string;
+    telephoneNumber: string;
+    starRating: number;
+    basePrice: number;
+    tel: string;
+    images: HotelImage;
 }
   
 export interface HotelJSON {
