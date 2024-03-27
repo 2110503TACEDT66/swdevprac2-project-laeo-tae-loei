@@ -13,7 +13,7 @@ export default async function createBooking(
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(
