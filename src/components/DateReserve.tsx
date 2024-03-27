@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 
-export default function DateReserve({onDateChange}:{onDateChange: Function}) {
+export default function DateReserve({onDateChange, current}:{onDateChange: Function, current?:Dayjs|null}) {
 
-    const [reserveDate, setReserveDate] = useState<Dayjs|null>(null);
+    const [reserveDate, setReserveDate] = useState<Dayjs|null>(current || null);
 
     return (
         <div className="bg-white rounded-lg justify-center">

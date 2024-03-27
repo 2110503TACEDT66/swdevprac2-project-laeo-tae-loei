@@ -23,7 +23,7 @@ export interface HotelJSON {
 export interface BookingItem {
   _id?: string,
   user: string; 
-  hotel: HotelItem; 
+  hotel: string; 
   roomType: string;
   duration: number;
   bookDate: Date;

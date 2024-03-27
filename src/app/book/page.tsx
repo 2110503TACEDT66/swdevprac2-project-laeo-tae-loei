@@ -11,10 +11,8 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
     const user = session? await getUserProfile(session.user?.token) : null;
     const hotel = await getHotel(searchParams.hotel);
 
-    
-
-    console.log(user);
-    console.log(hotel);
+    // console.log(user);
+    // console.log(hotel);
 
     let price = hotel.data.basePrice;
     if (searchParams.type.includes("Suite")) {
@@ -34,13 +32,13 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
         user: user.data._id,
         hotel: hotel.data._id,
         roomType: searchParams.type,
-        duration: searchParams.duration,
+        duration: searchParams.duration || 0,
         bookDate: new Date(searchParams.date),
         createdAt: new Date()
     }
 
     return (
-      <div className="bg-gray-100 w-2/3 mx-auto">
+      <div className="bg-gray-100 w-2/3 mx-auto min-h-screen">
       <header className="sticky top-0 z-10 bg-teal-700 text-white px-4 py-2 flex justify-between items-center">
           <h1 className="text-xl font-medium">{hotel.data.name}</h1>
           <p>Check-in: {checkinDate} - Check-out: {checkoutDate}</p>
@@ -48,7 +46,7 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
       <main className="container mx-auto px-4 py-8">
           <div className="flex flex-col mb-4">
               <h2 className="text-xl font-medium mb-2">Welcome, {user.data.name}!</h2>
-              <p>Room Information: 1 {searchParams.type}</p>
+              <p>Room Information: 1 {searchParams.type}, 2 adult</p>
           </div>
           <div className="border rounded-md p-4 shadow-sm">
               <h3 className="font-medium mb-2">Payment Information</h3>
@@ -59,13 +57,6 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
                   <p>Total Charge:</p>
                   <p>THB {price}</p>
               </div>
-          </div>
-          <div className="border rounded-md p-4 shadow-sm mt-4">
-              <h3 className="font-medium mb-2">Guest Information</h3>
-              <ul className="list-disc pl-4 mb-4">
-                  <li>Lead guest: {user.data.name}</li>
-                  <li>Book capacity: 2 adults</li>
-              </ul>
           </div>
           <div className="border rounded-md p-4 shadow-sm mt-4">
               <h3 className="font-medium mb-2">Modification and Cancellation Policy</h3>

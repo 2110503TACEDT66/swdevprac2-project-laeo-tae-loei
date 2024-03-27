@@ -10,6 +10,7 @@ import { CircularProgress } from "@mui/material";
 export default function BookingList({ booking, session }: { booking: BookingItem, session: any }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    // console.log(booking);
     const handleDeleteBooking = async (id: string) => {
         console.log("hello")
         setIsLoading(true);

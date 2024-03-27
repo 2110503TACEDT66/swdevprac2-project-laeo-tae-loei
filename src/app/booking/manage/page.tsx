@@ -11,7 +11,7 @@ export default function Page() {
 
     return (
         <div className='w-screen h-screen text-xl font-bold text-center'>
-            Redirecting...
+            Authorized! Redirecting to home...
         </div>
     );
 }

@@ -14,7 +14,7 @@ export default async function myBooking(){
     const session = await getServerSession(authOptions);
     if(!session) return null;
     const bookings = await getBookings(session.user.token);
-    // console.log(bookings);
+    console.log(bookings);
     // const booking = await getBooking(session.user.token, session.user._id);
     // console.log(booking);
 

@@ -33,7 +33,7 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
     };
 
     return (
-        <form className='rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
+        <div className='rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
             <div className="h-screen/2 flex items-center justify-center">
             <form className='bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
                 <div className='flex space-x-4'>
@@ -67,6 +67,6 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
                 </div>
             </form>
         </div>
-        </form>
+        </div>
     );
 }
