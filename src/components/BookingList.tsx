@@ -27,52 +27,54 @@ export default function BookingList({ booking, session }: { booking: BookingItem
     
 
     return (
-        <div className="flex flex-col justify-center items-center h-48 w-3/4 mx-auto bg-blue-200 rounded-lg shadow-md hover:shadow-lg transition duration-300 hover:scale-105">
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center w-full px-8 py-6 space-y-4 lg:space-y-0 lg:space-x-8">
-            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
-                <i style={{ fontSize: '25px' }} className="fi fi-sr-building"></i>
-                <div className="text-xl font-semibold text-blue-800">Hotel: {booking.hotel.name}</div>
+        
+        <div className="bg-gray-200  flex flex-col items-center space-y-4 shadow-lg p-6 w-3/4 mx-auto border-black border">
+        <div className="h-full w-[30%] relative">
+                <Image src='/img/Standard.jpg'
+                    alt='card image'
+                    fill={true}
+                    className='object-cover'/>
             </div>
-            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
-                <i style={{ fontSize: '18px' }} className="fi fi-sr-calendar-day"></i>
-                <div className="text-md font-semibold text-blue-800">Book Date: {booking.bookDate.toString()}</div>
+        <div className="h-full w-[70%] p-[10px] text-left m-4">
+            <div className="flex items-center space-x-4">
+                <i className="fi fi-sr-building text-3xl"></i>
+                <div className="text-xl font-semibold">Hotel: {booking.hotel.name}</div>
             </div>
-            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
-                <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
-                <div className="text-md font-semibold text-blue-800">Tel: {booking.hotel.telephoneNumber}</div>
+            
+            <div className="flex items-center space-x-4">
+                <i className="fi fi-sr-calendar-day text-xl"></i>
+                <div className="text-md font-semibold">Book Date: {booking.bookDate.toString()}</div>
             </div>
-            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
-                <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
-                <div className="text-md font-semibold text-blue-800">Room Type: {booking.roomType}</div>
+            <div className="flex items-center space-x-4">
+                <i className="fi fi-sr-phone-call text-xl"></i>
+                <div className="text-md font-semibold">Tel: {booking.hotel.telephoneNumber}</div>
             </div>
-            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
-                <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
-                <div className="text-md font-semibold text-blue-800">Duration: {booking.duration}</div>
+            <div className="flex items-center space-x-4">
+                <i className="fi fi-sr-phone-call text-xl"></i>
+                <div className="text-md font-semibold">Room Type: {booking.roomType}</div>
+            </div>
+            <div className="flex items-center space-x-4">
+                <i className="fi fi-sr-phone-call text-xl"></i>
+                <div className="text-md font-semibold">Duration: {booking.duration}</div>
             </div>
         </div>
-    
-        <div className="flex justify-center w-full px-8 py-6 space-x-4 lg:justify-end">
+        <div className="flex justify-center w-full space-x-4">
             <Link href={`/editbooking/${booking._id}`}>
-                <div className="px-6 py-2 max-w-max text-center rounded-full bg-blue-800 shadow-lg text-white text-md font-semibold transition duration-300 hover:scale-105 hover:text-lg">
-                    <div className="flex items-center space-x-2">
-                        <i style={{ fontSize: '18px' }} className="fi fi-sr-file-edit"></i>
-                        <div>Edit</div>
-                    </div>
-                </div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Edit
+                </button>
             </Link>
             {isLoading ? (
-                <div className="px-6 py-2 max-w-max text-center rounded-full bg-blue-800 shadow-lg text-white text-md font-semibold">
+                <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     <CircularProgress color="inherit" size={24} />
                 </div>
             ) : (
-                <button onClick={() => {console.log(booking?._id); handleDeleteBooking(booking._id as string); router.refresh() }} className="px-6 py-2 max-w-max text-center rounded-full bg-blue-800 shadow-lg text-white text-md font-semibold transition duration-300 hover:scale-105 hover:text-lg">
-                    <div className="flex items-center space-x-2">
-                        <i style={{ fontSize: '18px' }} className="fi fi-sr-trash"></i>
-                        <div>Delete</div>
-                    </div>
+                <button onClick={() => { handleDeleteBooking(booking._id as string); }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Delete
                 </button>
             )}
         </div>
     </div>
+    
     );
 }

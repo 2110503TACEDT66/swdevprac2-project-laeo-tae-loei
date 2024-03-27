@@ -4,45 +4,43 @@ import { BookingItem } from "../../interface"
 import { Session } from "inspector";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function CreateBookingButton({book, session}:{book:BookingItem, session:any}) {
     
-    const [loading, setLoading] = useState(false);
-    const [complete, setComplete] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    // console.log(session?.user.token)
 
-    const handleBook = (event: React.MouseEvent<HTMLButtonElement>) =>  {
-        setLoading(true);
-        createBooking(book.bookDate, book.duration, book.hotel, book.roomType).then(data => {
-            setLoading(false);
-            setComplete(true);
-        }).catch(error => {
-            setLoading(false);
-            alert("Cannot create booking");
-        });
-    }
+    console.log(book)
+    
+    const handleCreateBooking = async () => {
+        
+        setIsLoading(true);
+        try {
+            await createBooking(book.bookDate, 
+                book.hotel._id,
+                book.duration, 
+                book.roomType,
+                session?.user.token,
+                book.user)
+            alert("create booking success");
+        } catch (error:any) {
+            alert("create booking failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center py-4">
-                <CircularProgress />
-            </div>
-        );
-    }
-
-    if (complete) {
-        return (
-            <div className="flex justify-center items-center py-2">
-                <h1 className="text-2xl font-bold text-center mb-4 text-green-600">Booking created successfully</h1>
-            </div>
-        );
-    }
 
     return (
         <button
             type="button"
             className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md mt-4 mx-auto"
-            onClick={handleBook}>
-            BOOK NOW
+            onClick={() => { handleCreateBooking()}}>
+                {
+                    isLoading ? <CircularProgress size={24} color="inherit" /> : "BOOK NOW"
+                }
         </button>
 
     )
