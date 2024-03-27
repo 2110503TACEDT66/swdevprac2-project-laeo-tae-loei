@@ -4,9 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 import userRegister from "@/libs/userRegister";
 
+type User = {
+    id : string;
+    name : string;
+    email : string;
+    password : string;
+    telephoneNumber : string;
+    role : string;
+    createdAt : Date;
+}
+
 export default function RegisterationForm() {
 
-    const [values, setValues] = useState ({
+    const [values, setValues] = useState<User>({
         id: "0",
         name: "",
         email: "",
