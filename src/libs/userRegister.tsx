@@ -1,5 +1,15 @@
-export default function userRegister(user: User): Promise<User> {
-    return new Promise<User>((resolve, reject) => {
+type UserInput = {
+    id : string;
+    name : string;
+    email : string;
+    password : string;
+    telephoneNumber : string;
+    role : string;
+    createdAt : Date;
+}
+
+export default function userRegister(user: UserInput): Promise<UserInput> {
+    return new Promise<UserInput>((resolve, reject) => {
         try {
             fetch('https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/auth/register', {
                 method: 'POST',

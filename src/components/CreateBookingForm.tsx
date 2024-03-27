@@ -1,36 +1,45 @@
-'use client'
-import DateReserve from './DateReserve';
-import { useState } from 'react';
-import { Dayjs } from 'dayjs';
-import updateBooking from '@/libs/updateBooking';
+"use client"
+import createBooking from "@/libs/createBooking";
+import { BookingItem } from "../../interface"
+import { Session } from "inspector";
+import { useState } from "react";
+import getUserProfile from "@/libs/getUserProfile";
 import { Select, MenuItem, ListItemIcon, CircularProgress } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
-import { useRouter } from 'next/navigation';
+import DateReserve from "@/components/DateReserve";
+import { Dayjs } from 'dayjs';
 
-export default function UpdateBookingForm({ bookId, session }: { bookId: string, session: any }) {
-    const router = useRouter();
+
+export default function CreateBookingForm({book, session}:{book:BookingItem, session:any}) {
+    
+    const [isLoading, setIsLoading] = useState(false);
     const [bookDate, setBookDate] = useState<Dayjs | null>(null);
     const [duration, setDuration] = useState<number | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-
+    // console.log(session?.user.token)
     const menuClass = "px-3 py-1 space-x-2";
 
-    const handleUpdateBooking = async () => {
-        if (!bookId || !duration || !bookDate) return;
-
-        setIsLoading(true); // Start loading animation
-        
+    console.log(book)
+    
+    const handleCreateBooking = async () => {
+        if ( !duration || !bookDate) return;
+        setIsLoading(true);
+        const eBookDate = bookDate.toDate();
         try {
-            const eBookDate = bookDate.toDate();        
-            await updateBooking(eBookDate, duration, session.user.token, bookId);
-            console.log("updateBooking success");
-            alert("Booking updated successfully");
-        } catch (error) {
-            console.error("Error update booking:", error);
+            await createBooking(eBookDate, 
+                book.hotel._id,
+                duration, 
+                book.roomType,
+                session?.user.token,
+                book.user)
+            alert("create booking success");
+        } catch (error:any) {
+            alert("create booking failed");
         } finally {
-            setIsLoading(false); // Stop loading animation
+            setIsLoading(false);
         }
     };
+    
+
 
     return (
         <form className='rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
@@ -59,7 +68,7 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
                     </Select>
                 </div>
                 <div className='mx-auto'>
-                    <button type='submit' onClick={handleUpdateBooking}
+                    <button type='submit' onClick={handleCreateBooking}
                         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2'
                     >
                         {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}
@@ -69,4 +78,5 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
         </div>
         </form>
     );
+        
 }

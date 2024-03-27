@@ -1,18 +1,30 @@
 export default async function createBooking(
+    bookDate: Date,
+    hotelId: string,
+    duration: number,
+    roomType: string,
     token: string,
-    id: string,
-    body: any
+    user: string,
+    
   ) {
     try {
       const response = await fetch(
-        `https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/hotels/${id}/booking`,
+        `https://presentation-day-1-laeo-tae-loei.vercel.app/api/v1/hotel/${hotelId}/booking`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(body),
+          body: JSON.stringify(
+            {
+              bookDate: bookDate,
+              duration: duration,
+              hotel: hotelId,
+              roomType: roomType,
+              user:user
+            }
+          ),
         }
       );
   
