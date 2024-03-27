@@ -1,6 +1,6 @@
 "use client"
 import createBooking from "@/libs/createBooking";
-import { BookingItem } from "../../interface"
+import { BookCreateItem } from "../../interface"
 import { Session } from "inspector";
 import { useState, useEffect } from "react";
 import getUserProfile from "@/libs/getUserProfile";
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 
-export default function CreateBookingForm({book, session}:{book:BookingItem, session:any}) {
+export default function CreateBookingForm({book, session}:{book:BookCreateItem, session:any}) {
     const [modify, setModify] = useState(book.bookDate === null || book.duration < 1);
     const [isLoading, setIsLoading] = useState(false);
     const [isComplete, setIsComplete] = useState(false);

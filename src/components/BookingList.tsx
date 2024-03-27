@@ -25,7 +25,6 @@ export default function BookingList({ booking, session }: { booking: BookingItem
             setIsLoading(false);
         }
     };
-    
 
     return (
         

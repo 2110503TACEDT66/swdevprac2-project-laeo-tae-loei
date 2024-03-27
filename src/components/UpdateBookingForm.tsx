@@ -2,15 +2,18 @@
 import DateReserve from './DateReserve';
 import { useState } from 'react';
 import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import { BookingItem } from '../../interface';
 import updateBooking from '@/libs/updateBooking';
 import { Select, MenuItem, ListItemIcon, CircularProgress } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import { useRouter } from 'next/navigation';
 
-export default function UpdateBookingForm({ bookId, session }: { bookId: string, session: any }) {
+export default function UpdateBookingForm({ bookItem, bookId, session }: 
+    { bookItem:BookingItem, bookId: string, session: any }) {
     const router = useRouter();
-    const [bookDate, setBookDate] = useState<Dayjs | null>(null);
-    const [duration, setDuration] = useState<number | null>(null);
+    const [bookDate, setBookDate] = useState<Dayjs>(dayjs(bookItem.bookDate));
+    const [duration, setDuration] = useState<number>(bookItem.duration);
     const [isLoading, setIsLoading] = useState(false);
 
     const menuClass = "px-3 py-1 space-x-2";
@@ -37,9 +40,10 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
             <div className="h-screen/2 flex items-center justify-center">
             <form className='bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
                 <div className='flex space-x-4'>
-                    <DateReserve onDateChange={(value: Dayjs) => setBookDate(value)} />
+                    <DateReserve onDateChange={(value: Dayjs) => setBookDate(value)} current={bookDate}/>
                     <Select variant='standard' name='duration' id='duration' className='bg-white w-[100px] focus:outline-none focus:border-none' 
-                        onChange={(event) => setDuration(event.target.value as unknown as number)} labelId="duration-label" defaultValue={1}
+                        onChange={(event) => setDuration(event.target.value as unknown as number)} labelId="duration-label" 
+                        defaultValue={duration}
                     >
                         <MenuItem value={1}>
                             <ListItemIcon className={menuClass}>
@@ -59,7 +63,7 @@ export default function UpdateBookingForm({ bookId, session }: { bookId: string,
                     </Select>
                 </div>
                 <div className='mx-auto'>
-                    <button type='submit' onClick={handleUpdateBooking}
+                    <button type='submit' onClick={(event) => {handleUpdateBooking();}}
                         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2'
                     >
                         {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}

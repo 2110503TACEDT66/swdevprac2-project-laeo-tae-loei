@@ -3,7 +3,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getUserProfile from "@/libs/getUserProfile";
 import Link from "next/link";
 import getHotel from "@/libs/getHotel";
-import { BookingItem } from "../../../interface";
+import { BookCreateItem } from "../../../interface";
 import CreateBookingForm from "@/components/CreateBookingForm"; 
 
 export default async function Book({searchParams}:{searchParams:{hotel:string, type:string, date:string, duration:number}}) {
@@ -28,7 +28,7 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
     const checkinDate = new Date(searchParams.date).toLocaleDateString();
     const checkoutDate = new Date(new Date(searchParams.date).getTime() + searchParams.duration * 24 * 60 * 60 * 1000).toLocaleDateString();
     
-    const book:BookingItem = {
+    const book:BookCreateItem = {
         user: user.data._id,
         hotel: hotel.data._id,
         roomType: searchParams.type,

@@ -20,10 +20,20 @@ export interface HotelJSON {
   data: HotelItem[]
 }
 
-export interface BookingItem {
+export interface BookCreateItem {
   _id?: string,
   user: string; 
   hotel: string; 
+  roomType: string;
+  duration: number;
+  bookDate: Date;
+  createdAt: Date;
+}
+
+export interface BookingItem {
+  _id?: string,
+  user: string; 
+  hotel: HotelItem; 
   roomType: string;
   duration: number;
   bookDate: Date;

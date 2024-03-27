@@ -1,6 +1,4 @@
 
-import { BookingItem } from "../../interface";
-
 export default async function updateBooking(EbookDate:Date,duration:number, token:string, id:string) {
 
     console.log("updating")
