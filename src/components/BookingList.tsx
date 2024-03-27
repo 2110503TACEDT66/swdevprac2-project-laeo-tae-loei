@@ -8,7 +8,6 @@ import {useState} from "react";
 import { CircularProgress } from "@mui/material";
 
 export default function BookingList({ booking, session }: { booking: BookingItem, session: any }) {
-    console.log(booking._id)
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const handleDeleteBooking = async (id: string) => {
@@ -32,15 +31,23 @@ export default function BookingList({ booking, session }: { booking: BookingItem
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center w-full px-8 py-6 space-y-4 lg:space-y-0 lg:space-x-8">
             <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
                 <i style={{ fontSize: '25px' }} className="fi fi-sr-building"></i>
-                <div className="text-xl font-semibold text-blue-800">{booking.hotel.name}</div>
+                <div className="text-xl font-semibold text-blue-800">Hotel: {booking.hotel.name}</div>
             </div>
             <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
                 <i style={{ fontSize: '18px' }} className="fi fi-sr-calendar-day"></i>
-                <div className="text-md font-semibold text-blue-800">{booking.bookDate.toString()}</div>
+                <div className="text-md font-semibold text-blue-800">Book Date: {booking.bookDate.toString()}</div>
             </div>
             <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
                 <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
-                <div className="text-md font-semibold text-blue-800">{booking.hotel.tel}</div>
+                <div className="text-md font-semibold text-blue-800">Tel: {booking.hotel.telephoneNumber}</div>
+            </div>
+            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
+                <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
+                <div className="text-md font-semibold text-blue-800">Room Type: {booking.roomType}</div>
+            </div>
+            <div className="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:space-x-6 lg:items-center">
+                <i style={{ fontSize: '18px' }} className="fi fi-sr-phone-call"></i>
+                <div className="text-md font-semibold text-blue-800">Duration: {booking.duration}</div>
             </div>
         </div>
     

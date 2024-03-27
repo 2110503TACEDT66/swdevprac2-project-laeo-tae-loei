@@ -16,6 +16,6 @@ export default async function getBooking(token: string, id: string) {
   
       return await response.json();
     } catch (error: any) {
-      throw new Error(`Failed to fetch bookings: ${error.message}`);
+      console.log(`Failed to fetch bookings: ${error.message}`);
     }
   }
