@@ -2,7 +2,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Select, MenuItem, MenuProps, ListItemIcon, Autocomplete, TextField } from "@mui/material";
+import { Select, MenuItem, CircularProgress, ListItemIcon, Autocomplete, TextField } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import PersonIcon from '@mui/icons-material/Person';
 import DateReserve from "./DateReserve";
@@ -14,25 +14,28 @@ export default function AddBookDate(searchParams:any) {
         { label: 'Chiang Mai', value: 'Chiang Mai' },
         { label: 'Phuket', value: 'Phuket'}
     ]
-    const [destination, setDestination] = useState<string>('');
+    const [destination, setDestination] = useState<string>(searchParams.address || 'Anywhere');
     const [reserveDate, setReserveDate] = useState<Dayjs|null>(null);
     const [duration, setDuration] = useState<number>(1);
-    const [alertShown, setAlertShown] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(false);
     const menuClass = "px-3 py-1 space-x-2";
 
     const router = useRouter();
 
     const handleSearch = () => {
+        setIsLoading(true);
         const params = new URLSearchParams({
             duration: String(duration), 
-            date: reserveDate ? reserveDate.format('YYYY-MM-DD') : '2025-01-01' 
+            date: reserveDate ? reserveDate.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD') 
         });
 
         if (destination === 'Anywhere') {
             params.delete('address');
         }
         router.push(`/hotels?${params.toString()}`);
+        setIsLoading(false);
     };
+
 
     return (
         <div className=" bg-gray-200 flex flex-col items-center space-y-4 shadow w-screen">
@@ -40,7 +43,7 @@ export default function AddBookDate(searchParams:any) {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    defaultValue={searchParams.address || 'Anywhere'}
+                    // defaultValue={searchParams.address || 'Anywhere'}
                     options={options}
                     sx={{ width: 300 }}
                     onChange={(event:React.SyntheticEvent<Element, Event>, value:any) => setDestination(value?.value || '')}
@@ -61,8 +64,15 @@ export default function AddBookDate(searchParams:any) {
                         <ListItemIcon className={menuClass}><PersonIcon fontSize="small" style={{ marginRight: '8px' }}/>2 adults, 1 room</ListItemIcon>
                     </MenuItem>
                 </Select>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow"
-                onClick={handleSearch}>SEARCH</button>
+
+                {isLoading ? (
+                    <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold 
+                    py-2 px-4 w-72 text-base rounded-full shadow"><CircularProgress size={24}/></div>
+                ) : 
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold 
+                    py-2 px-4 w-72 text-base rounded-full shadow" onClick={handleSearch}>SEARCH</button>
+                }
+
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import Image from "next/image";
 import getHotel from "@/libs/getHotel";
 import RoomCard from "@/components/RoomCard";
 import EditHotelButton from "@/components/EditHotelButton";
-import { Rating } from "@mui/material";
+import StarRating from "@/components/StarRating";
 
 export default async function HotelDetail({params, searchParams}:{params:{hid:string}, searchParams:{date:string, duration:number}}) {
     const hotel = await getHotel(params.hid)
@@ -23,7 +23,7 @@ export default async function HotelDetail({params, searchParams}:{params:{hid:st
                     width={0} height={0} sizes='100vw'
                     className='rounded-md w-[100%]'/>
             <div className="py-2 text-4xl font-semibold mx-2">{hotelItem.name}
-                <Rating name="rating" value={hotelItem.starRating} readOnly />
+                <StarRating name="rating" value={hotelItem.starRating} readOnly />
             </div>
 
             <div className="flex flexrow my-3 mx-2">

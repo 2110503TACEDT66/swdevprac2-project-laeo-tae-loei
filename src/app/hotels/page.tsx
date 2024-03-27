@@ -16,7 +16,7 @@ export default async function HotelsPage(props: Props) {
     const hotels:HotelJSON = await getHotels(searchParams)
     
     return(
-        <main>
+        <main className="w-screen">
             <AddBookDate searchParams={searchParams}/>
             <HotelCatalog hotelJson={hotels} date={searchParams.date as string} duration={Number(searchParams.duration)} />
         </main>

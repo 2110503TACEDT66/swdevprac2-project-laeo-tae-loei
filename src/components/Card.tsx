@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import InteractiveCard from './InteractiveCard'
-import { Rating } from '@mui/material'
+import StarRating from './StarRating';
 import { HotelItem, HotelImage } from '../../interface';
 import ImageComponent from './ImageComponent';
+import { styled } from '@mui/system';
 
 export default function Card({hotelName}:
     {hotelName:HotelItem}) {
@@ -19,7 +20,7 @@ export default function Card({hotelName}:
                 <Image src={pic}
                     alt='card image'
                     fill={true}
-                    className='object-cover'/>
+                    className='object-cover rounded-l-lg'/>
             </div>
 
             <div className="h-full w-[70%] p-[10px] text-left m-4">
@@ -27,7 +28,7 @@ export default function Card({hotelName}:
 
                 <div className='flex flex-row m-4 justify-between'>
                     <div className='w-[70%]'>
-                        <Rating className='h-[10%]' readOnly value={hotel.starRating}/>
+                        <StarRating className='h-[10%]' readOnly value={hotel.starRating}/>
                         <p className='text-sky-600'>{hotel.address}</p>
                     </div>
 

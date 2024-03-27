@@ -2,7 +2,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Select, MenuItem, MenuProps, ListItemIcon, Autocomplete, TextField } from "@mui/material";
+import { Select, MenuItem, CircularProgress, ListItemIcon, Autocomplete, TextField } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import PersonIcon from '@mui/icons-material/Person';
 import DateReserve from "./DateReserve";
@@ -14,6 +14,7 @@ export default function BannerSearch() {
         { label: 'Chiang Mai', value: 'Chiang Mai' },
         { label: 'Phuket', value: 'Phuket'}
     ]
+    const [isLoading, setIsLoading] = useState(false);
     const [destination, setDestination] = useState<string>('');
     const [reserveDate, setReserveDate] = useState<Dayjs|null>(null);
     const [duration, setDuration] = useState<number>(1);
@@ -22,17 +23,19 @@ export default function BannerSearch() {
     const router = useRouter();
 
     const handleSearch = () => {
+        setIsLoading(true);
         const params = new URLSearchParams({
             address: destination,
             duration: String(duration), 
-            date: reserveDate ? reserveDate.format('YYYY-MM-DD') : '2025-01-01' 
+            date: reserveDate ? reserveDate.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD') 
         });
 
-        if (destination === 'Anywhere') {
+        if (destination === 'Anywhere' || destination === '') {
             params.delete('address');
         }
         
         router.push(`/hotels?${params.toString()}`);
+        setIsLoading(false);
     };
 
     return (
@@ -64,10 +67,19 @@ export default function BannerSearch() {
                     </MenuItem>
                 </Select>
             </div >
+
+            {isLoading ? (
+            <div className="pb-6">
+                <div className="font-bold py-2 px-4 w-72 text-base"
+                onClick={handleSearch}><CircularProgress size={24}/></div>
+            </div>
+            ) : 
             <div className="pb-6">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-72 text-base rounded-full shadow"
                 onClick={handleSearch}>SEARCH</button>
             </div>
+            }
+
         </div>
     )
 }
