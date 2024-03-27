@@ -6,7 +6,7 @@ import userRegister from "@/libs/userRegister";
 
 export default function RegisterationForm() {
 
-    const [values, setValues] = useState<User>({
+    const [values, setValues] = useState ({
         id: "0",
         name: "",
         email: "",
