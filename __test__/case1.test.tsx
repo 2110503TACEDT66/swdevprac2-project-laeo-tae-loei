@@ -42,9 +42,12 @@ describe('Hotels Query', () => {
 
 // test HotelCatalog
 describe('HotelCatalog', () => {
-
+    var allHotelsJsonResult:HotelJSON
+    beforeEach(async () => {
+        allHotelsJsonResult = await getHotels()
+    })
     it('should render all hotels', async () => {
-        const catalog = await HotelCatalog({hotelJson: mockAllHotels, date: "2022-12-12", duration: 3})
+        const catalog = await HotelCatalog({hotelJson: allHotelsJsonResult, date: "2022-12-12", duration: 3})
         render(catalog)
         const hotelElements = screen.getAllByRole('link');
         expect(hotelElements.length).toBe(9);
