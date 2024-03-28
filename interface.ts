@@ -9,8 +9,8 @@ export interface HotelItem {
     telephoneNumber: string;
     starRating: number;
     basePrice: number;
-    tel: string;
     images: HotelImage;
+    __v?: number;
 }
   
 export interface HotelJSON {
