@@ -1,4 +1,4 @@
-import { HotelJSON } from '../interface';
+import { HotelJSON, BookingJSON } from '../interface';
 
 export const mockAllHotels:HotelJSON = {
   "success": true,
@@ -141,5 +141,57 @@ export const mockHotelQuery:HotelJSON = {
       "basePrice": 20000,
       "starRating": 5
     }
+  ]
+}
+
+export const mockBooking:BookingJSON = {
+  "success": true,
+  "count": 3,
+  "data": [
+      {
+          "_id": "660554c4b088aae378a2762a",
+          "bookDate": "2024-03-28T17:00:00.000Z",
+          "user": "6605544bb088aae378a27611",
+          "hotel": {
+              "_id": "66047bf2ea8d18035a6a5ca3",
+              "name": "B2 Suthep Night Market Premier Resort",
+              "address": "Moo 14 99/9 Suthep Rd, Mueang Chiang Mai District, Chiang Mai 50200",
+              "telephoneNumber": "+66 52 000 5000"
+          },
+          "roomType": "Superior",
+          "duration": 2,
+          "createdAt": "2024-03-28T11:30:12.965Z",
+          "__v": 0
+      },
+      {
+          "_id": "660554dcb088aae378a27641",
+          "bookDate": "2024-03-29T17:00:00.000Z",
+          "user": "6605544bb088aae378a27611",
+          "hotel": {
+              "_id": "65e5a51af7b75740c5c2b958",
+              "name": "Dhara Dhevi Hotel Chiang Mai",
+              "address": "51/5 Moo 1, Suthep, Mueang Chiang Mai District, Chiang Mai 50200, Thailand",
+              "telephoneNumber": "+66 53 888 888"
+          },
+          "roomType": "Suite",
+          "duration": 2,
+          "createdAt": "2024-03-28T11:30:36.424Z",
+          "__v": 0
+      },
+      {
+          "_id": "660554f7bf34072090497388",
+          "bookDate": "2024-03-28T17:00:00.000Z",
+          "user": "6605544bb088aae378a27611",
+          "hotel": {
+              "_id": "65e5a51af7b75740c5c2b95a",
+              "name": "Dusit Thani Pattaya",
+              "address": "240 Pattaya Second Road, Bang Lamung, Chonburi 20150, Thailand",
+              "telephoneNumber": "+66 38 425 600"
+          },
+          "roomType": "Suite",
+          "duration": 2,
+          "createdAt": "2024-03-28T11:31:03.177Z",
+          "__v": 0
+      }
   ]
 }

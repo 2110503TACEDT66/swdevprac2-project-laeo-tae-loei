@@ -7,9 +7,9 @@ export interface HotelItem {
     name: string;
     address: string;
     telephoneNumber: string;
-    starRating: number;
-    basePrice: number;
-    images: HotelImage;
+    starRating?: number;
+    basePrice?: number;
+    images?: HotelImage;
     __v?: number;
 }
   
@@ -36,8 +36,15 @@ export interface BookingItem {
   hotel: HotelItem; 
   roomType: string;
   duration: number;
-  bookDate: Date;
-  createdAt: Date;
+  bookDate: string;
+  createdAt: string;
+  __v?: number;
+}
+
+export interface BookingJSON {
+  success: boolean,
+  count: number,
+  data: BookingItem[]
 }
 
 export interface User {
