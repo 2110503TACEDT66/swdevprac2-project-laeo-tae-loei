@@ -32,7 +32,7 @@ export default async function Book({searchParams}:{searchParams:{hotel:string, t
     
     const book:BookingItem = {
         user: user.data,
-        hotel: hotel.data._id,
+        hotel: hotel.data,
         roomType: searchParams.type,
         duration: searchParams.duration || 0,
         bookDate: new Date(searchParams.date),
