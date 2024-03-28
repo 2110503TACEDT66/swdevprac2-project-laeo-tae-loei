@@ -4,7 +4,7 @@ import HotelCatalog from '@/components/HotelCatalog';
 import getHotels from '@/libs/getHotels';
 import { HotelJSON } from '../interface';
 import { mockAllHotels, mockHotelQuery } from "../__test__/mockData"
-import { mock } from 'node:test';
+
 
 // test API
 describe('All Hotels', ()=>{
