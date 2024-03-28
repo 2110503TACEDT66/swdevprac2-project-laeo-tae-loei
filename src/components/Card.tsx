@@ -1,21 +1,82 @@
 import Image from 'next/image'
 import InteractiveCard from './InteractiveCard'
 import StarRating from './StarRating';
-import { HotelItem, HotelImage } from '../../interface';
+import { HotelItem, HotelImage, BookCreateItem } from '../../interface';
 import ImageComponent from './ImageComponent';
 import { styled } from '@mui/system';
+import calculateRoomPrice from '@/libs/calculateRoomPrice';
+import dayjs from 'dayjs';
 
-export default function Card({hotelName}:
-    {hotelName:HotelItem}) {
+export default function Card({hotelName, book, cardType}:
+    {hotelName:HotelItem, book?:BookCreateItem, cardType?:string}) {
         const hotel = hotelName
         const img = hotel.images
         const pic = img?.main
+        let showPrice = hotel.basePrice
         console.log(img)
         console.log("pic: " + pic)
-    
+
+    const roomTypeImages: { [key: string]: string } = {
+        'Standard': '/img/Standard.jpg',
+        'Superior': '/img/Superior.jpg',
+        'Deluxe': '/img/Deluxe.jpg',
+        'Suite': '/img/Suite.jpg',
+        'Executive Suite': '/img/ExSuite.jpg'
+    };
+
         //"/img/Standard.jpg"
+    if (cardType === 'booking') {
+        return (
+            <InteractiveCard cardType={cardType}>
+            <div className="h-full w-[30%] relative">
+                <Image src={pic}
+                    alt='card image'
+                    fill={true}
+                    className='object-cover rounded-l-lg'/>
+            </div>
+
+            <div className="w-[70%] text-left m-6">
+                {/* top part - hotel name & rating */}
+                <div className='text-2xl font-semibold space-y-2'>
+                    <div>{hotel.name}</div>
+                    <StarRating className='h-[10%]' readOnly value={hotel.starRating}/>
+                </div>
+
+                {/* down part */}
+                <div className='flex flex-row justify-between'>
+                    <div className='w-[50%] space-y-2'>
+                        <div className='grid grid-cols-2 justify-between'>
+                            <div>
+                                <div className='font-bold'>Check-in</div>
+                                <div>{dayjs(book?.bookDate).format('ddd, DD/MM/YYYY')}</div>
+                            </div><div>
+                                <div className='font-bold'>Check-out</div>
+                                <div>{dayjs(book?.bookDate).add(book?.duration || 0, 'day').format('ddd, DD/MM/YYYY')}</div>
+                            </div>
+                        </div>
+                        <p className='text-gray-600'>Hotel phone: {hotel.telephoneNumber}</p>
+                    </div>
+                    <div className='w-[50%] flex flex-row space-x-4'>
+                        <div className="h-full w-[30%] relative">
+                            <Image src={roomTypeImages[book?.roomType || 'Standard']}
+                            alt='card image'
+                            fill={true}
+                            className='object-cover rounded-md'/>
+                        </div>
+                        <div className='justify-between'>
+                            <div className='font-bold'>Room Information</div>
+                            <div>1 X {book?.roomType} Room</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </InteractiveCard>
+        )
+    }
+
     return(
-        <InteractiveCard>
+        <InteractiveCard cardType={cardType}>
             <div className="h-full w-[30%] relative">
                 <Image src={pic}
                     alt='card image'
@@ -34,9 +95,8 @@ export default function Card({hotelName}:
 
                     <div className='w-[30%]'>
                         <div className=''>Start form</div>
-                        <div className='text-red-600 text-lg'>THB {hotel.basePrice}</div>
+                        <div className='text-red-600 text-lg'>THB {showPrice}</div>
                     </div>
-                    
                 </div>
             </div>
             

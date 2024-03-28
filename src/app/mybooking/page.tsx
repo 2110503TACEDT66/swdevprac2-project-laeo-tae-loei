@@ -11,8 +11,8 @@ export default async function myBooking(){
     console.log(bookings);
     
     return(
-        <main className='flex flex-col items-center justify-center'>
-            <h1 className="text-2xl font-bold ">Your Bookings</h1>
+        <main className='flex flex-col items-center min-h-screen'>
+            <h1 className="text-2xl font-bold my-4">Your Bookings</h1>
            {bookings.data && bookings.data.length > 0 ? (
                 bookings?.data.map((booking:BookingItem) => (
                     <BookingList key={booking._id} booking={booking} session={session} />

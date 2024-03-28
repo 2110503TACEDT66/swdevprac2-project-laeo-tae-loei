@@ -74,29 +74,26 @@ export default function CreateBookingForm({book, session}:{book:BookCreateItem, 
                             </ListItemIcon>
                         </MenuItem>
                     </Select>
-                </div>
-                
-                <div className='mx-auto'>
-                {(duration !== null && bookDate !== null) ? (
-                    <Link href={linkUpdate}>
-                    <button type='submit' onClick={(event)=> {
-                        setModify(false);}}
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-16
-                        rounded flex items-center space-x-2'
-                    >
-                        {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}
-                    </button>
-                    </Link>
-                ) : (
-                    <button type='submit' onClick={(event)=> {
-                        event.preventDefault();}}
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-16 
-                        rounded flex items-center space-x-2'
-                        disabled
-                    >
-                        {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}
-                    </button>
-                )}
+                    {(duration !== null && bookDate !== null) ? (
+                        <Link href={linkUpdate}>
+                        <button type='submit' onClick={(event)=> {
+                            setModify(false);}}
+                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-16 text-lg
+                            rounded items-center space-x-2 h-full'
+                        >
+                            {isLoading ? <CircularProgress size={24} color="inherit" /> : "UPDATE"}
+                        </button>
+                        </Link>
+                    ) : (
+                        <button type='submit' onClick={(event)=> {
+                            event.preventDefault();}}
+                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-16 
+                            rounded flex items-center space-x-2 h-full'
+                            disabled
+                        >
+                            {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}
+                        </button>
+                    )}
                 </div>
             </form>
         </div>
@@ -117,20 +114,26 @@ export default function CreateBookingForm({book, session}:{book:BookCreateItem, 
             </div>
         </div>
     );
+    
+    if (isLoading) 
+        return (
+        <div className="flex justify-center items-center w-full mt-4">
+            <CircularProgress size={30} color="inherit" />
+        </div>
+    );
 
     return (
-        <div className="flex justify-between space-x-6 mt-4">
+        <div className="flex justify-between space-x-6 mt-2 w-full text-lg">
             <button type='submit' onClick={(event)=> {
                 setModify(true);}}
-                className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-16 
-                rounded flex items-center space-x-2'
-            >Modify</button>
+                className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-16 
+                rounded flex justify-center text-center w-1/3 shadow-lg'
+            >Modify Booking</button>
             <button type='submit' onClick={(event)=> {
                 event.preventDefault(); handleCreateBooking();}}
-                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-16 
-                rounded flex items-center space-x-2'
-            >
-                {isLoading ? <CircularProgress size={24} color="inherit" /> : "Book"}
+                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-16 
+                rounded flex justify-center text-center space-x-2 w-2/3 shadow-lg'
+            >BOOK NOW
             </button>
         </div>
     )

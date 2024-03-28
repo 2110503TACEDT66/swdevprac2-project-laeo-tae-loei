@@ -8,7 +8,7 @@ export default async function AccountPage () {
     const user = session? await getUserProfile(session.user?.token) : null;
     const createdAt = new Date(user.data.createdAt).toLocaleString();
     return (
-        <main className="pt-8 items-center">
+        <main className="pt-8 items-center min-h-screen">
             <div className="max-w-xl mx-auto">
                 <h1 className="text-center text-2xl font-bold mb-4">My Account</h1>
                 <div className="flex flex-col gap-4">
@@ -28,6 +28,14 @@ export default async function AccountPage () {
                         <h2 className="font-bold">Member since:</h2>
                         <p className="text-left">{createdAt}</p>
                     </div>
+                    {
+                        user.data.role === "admin" && (
+                            <div className="flex justify-between">
+                                <h2 className="font-bold">Role:</h2>
+                                <p className="text-left">{user.data.role}</p>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </main>

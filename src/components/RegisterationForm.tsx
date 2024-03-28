@@ -53,12 +53,12 @@ export default function RegisterationForm() {
         return (
             <div className="flex flex-col items-center justify-center">
                 <h1 className="text-2xl font-bold text-center mb-4 text-green-600">User created successfully</h1>
-                <div className="fixed flex justify-between w-full max-w-xs bottom-20 text-xl">
+                <div className="flex justify-between w-full max-w-xs bottom-20 text-xl pt-96">
                     <Link href="/">
                         <button className="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 
                         transition-colors text-center flex-1 mr-2 w-32">Home</button>
                     </Link>
-                    <Link href="/login">
+                    <Link href="/api/auth/signin">
                         <button className="block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 
                         transition-colors text-center flex-1 ml-2 w-32">Login</button>
                     </Link>
