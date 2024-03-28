@@ -15,7 +15,7 @@ describe('Booking API', ()=>{
       BookingJsonResult = await getBookings(token)
     })
     
-    it('should have correct number of hotels', async ()=>{
+    it('should have correct number of bookings', async ()=>{
         expect(BookingJsonResult.count).toBe(mockBooking.count)
         expect(BookingJsonResult.data).toHaveLength(mockBooking.data.length)
     })
