@@ -1,33 +1,18 @@
-// import Card from "./Card";
-// import Link from "next/link";
-// import { HotelJSON } from "../../interface";
-// import { useRouter } from "next/navigation";
+import Card from "./Card";
+import { HotelJSON } from "../../interface";
+import { useRouter } from "next/navigation";
+import BookingHotelCard from "./BookingHotelCard";
+import Link from "next/link";
+import { BookingItem } from "../../interface";
 
-// export default async function BookingCatalog({hotelJson, date, duration}
-//     :{hotelJson:HotelJSON, date:string, duration:number}) {
-//     const hotel = await hotelJson
-//     console.log(hotel.data.map((item) => {item.images}))
+export default async function BookingCatalog({booking}:{booking:BookingItem}) {
+    return(
+        <div>
+            <Link href={`/booking/${booking._id}`}>
+                <BookingHotelCard hotel={booking.hotel} book={booking} cardType="showBooking"/>
+            </Link>
+        </div>
+    )
+}
 
-//     return(
-//         <div style={{
-//             margin: "20px",
-//             display: "flex",
-//             flexDirection:"column",
-//             flexWrap:"wrap",
-//             justifyContent:"center",
-//             alignContent:"space-around"
-//         }}>
-//             {
-//                 hotel.data.map((item) => (
-//                     <Link href={`/hotels/${item._id}?date=${date}&duration=${duration}`} className="w-full py-4">
-//                     <Card hotelName={item.name} imgSrc={"/img/Standard.jpg"}
-//                     address={item.address} tel={item.telephoneNumber}
-//                     rating={item.starRating} price={item.basePrice}/>
-//                     </Link>
-//                 ))
-//             }
-//         </div>
-//     )
-// }
-
-// //"/img/Standard"
+//"/img/Standard"

@@ -5,6 +5,7 @@ import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import { BookingItem } from '../../interface';
 import updateBooking from '@/libs/updateBooking';
+import deleteBooking from '@/libs/deleteBooking';
 import { Select, MenuItem, ListItemIcon, CircularProgress } from "@mui/material";
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import { useRouter } from 'next/navigation';
@@ -35,8 +36,23 @@ export default function UpdateBookingForm({ bookItem, bookId, session }:
         }
     };
 
+    const handleDeleteBooking = async () => {
+        console.log("hello")
+        setIsLoading(true);
+        try {
+            const token = session.user.token;
+            await deleteBooking(token, bookId);
+            console.log("delete booking success");
+            router.push('/mybooking');
+        } catch (error:any) {
+            console.log(error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
-        <div className='rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
+        <div className='rounded-3xl flex flex-col items-center space-y-4 p-6'>
             <div className="h-screen/2 flex items-center justify-center">
             <form className='bg-gray-200 rounded-3xl flex flex-col items-center space-y-4 shadow p-6'>
                 <div className='flex space-x-4'>
@@ -63,11 +79,18 @@ export default function UpdateBookingForm({ bookItem, bookId, session }:
                     </Select>
                 </div>
                 <div className='mx-auto'>
+                    {isLoading ?
+                        <CircularProgress size={24} color="inherit" /> :
+                    <div className='flex justify-between space-x-6 mt-2 w-full'>
                     <button type='submit' onClick={(event) => {handleUpdateBooking();}}
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center space-x-2'
-                    >
-                        {isLoading ? <CircularProgress size={24} color="inherit" /> : "Update"}
-                    </button>
+                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded flex items-center space-x-2'
+                    >Edit</button>
+                    <button type='submit' onClick={(event) => {handleDeleteBooking();}}
+                        className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-8 rounded flex items-center space-x-2'
+                    >Delete</button>
+                    </div>
+                    }
+                    
                 </div>
             </form>
         </div>

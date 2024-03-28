@@ -1,20 +1,21 @@
 import Image from 'next/image'
 import InteractiveCard from './InteractiveCard'
 import StarRating from './StarRating';
-import { HotelItem, HotelImage, BookCreateItem } from '../../interface';
+import { HotelItem, HotelImage, BookingItem, UserBookingInfo } from '../../interface';
 import ImageComponent from './ImageComponent';
 import { styled } from '@mui/system';
 import calculateRoomPrice from '@/libs/calculateRoomPrice';
 import dayjs from 'dayjs';
 
-export default function Card({hotelName, book, cardType}:
-    {hotelName:HotelItem, book?:BookCreateItem, cardType?:string}) {
+export default function Card({hotelName, book, user, cardType}:
+    {hotelName:HotelItem, book?:BookingItem, user?:UserBookingInfo, cardType?:string}) {
         const hotel = hotelName
         const img = hotel.images
         const pic = img?.main
         let showPrice = hotel.basePrice
         console.log(img)
         console.log("pic: " + pic)
+        console.log(book?.roomType);
 
     const roomTypeImages: { [key: string]: string } = {
         'Standard': '/img/Standard.jpg',
@@ -25,11 +26,11 @@ export default function Card({hotelName, book, cardType}:
     };
 
         //"/img/Standard.jpg"
-    if (cardType === 'booking') {
+    if (cardType === 'createBooking' || cardType === 'showBooking') {
         return (
             <InteractiveCard cardType={cardType}>
             <div className="h-full w-[30%] relative">
-                <Image src={pic}
+                <Image src={pic || '/img/Standard.jpg'}
                     alt='card image'
                     fill={true}
                     className='object-cover rounded-l-lg'/>
@@ -54,7 +55,14 @@ export default function Card({hotelName, book, cardType}:
                                 <div>{dayjs(book?.bookDate).add(book?.duration || 0, 'day').format('ddd, DD/MM/YYYY')}</div>
                             </div>
                         </div>
-                        <p className='text-gray-600'>Hotel phone: {hotel.telephoneNumber}</p>
+                        {
+                        cardType === 'showBooking' ? (
+                            <div className='text-base font-bold'>Guest: {book?.user.name}</div>
+                        ) : (
+                            <p className='text-gray-600'>Hotel phone: {hotel.telephoneNumber}</p>
+                        )
+                        }
+                        
                     </div>
                     <div className='w-[50%] flex flex-row space-x-4'>
                         <div className="h-full w-[30%] relative">
@@ -69,6 +77,14 @@ export default function Card({hotelName, book, cardType}:
                         </div>
                     </div>
                 </div>
+                {
+                    cardType === 'showBooking' && (
+                        <div className="">
+                            <div className="text-gray-500">Booking ID: {book?._id}</div>
+                            <div className="text-gray-400">Click to view or edit booking information</div>
+                        </div>
+                    )
+                }
             </div>
             
         </InteractiveCard>
@@ -78,7 +94,7 @@ export default function Card({hotelName, book, cardType}:
     return(
         <InteractiveCard cardType={cardType}>
             <div className="h-full w-[30%] relative">
-                <Image src={pic}
+                <Image src={pic || '/img/Standard.jpg'}
                     alt='card image'
                     fill={true}
                     className='object-cover rounded-l-lg'/>

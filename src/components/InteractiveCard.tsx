@@ -17,10 +17,21 @@ export default function InteractiveCard({children, cardType}:{children:React.Rea
         }
     }
 
-    if (cardType == 'booking') {
+    if (cardType === 'createBooking') {
         return(
             <div className="w-[100%] h-[200px] shadow-lg rounded-lg bg-white
             flex flex-row">
+                {children}
+            </div>
+        )
+    }
+    
+    if (cardType === 'showBooking') {
+        return(
+            <div className="w-[100%] h-[250px] shadow-lg rounded-lg bg-white
+            flex flex-row"
+            onMouseOver={(e)=>onCardMouseAction(e)}
+            onMouseOut={(e)=>onCardMouseAction(e)}>
                 {children}
             </div>
         )
