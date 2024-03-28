@@ -25,6 +25,7 @@ export default function AddBookDate(searchParams:any) {
     const handleSearch = () => {
         setIsLoading(true);
         const params = new URLSearchParams({
+            address: destination,
             duration: String(duration), 
             date: reserveDate ? reserveDate.format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD') 
         });
